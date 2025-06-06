@@ -1,6 +1,7 @@
 package org.fs.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.fs.dto.ArticleUpdateDto;
 import org.fs.entity.Article;
 import org.fs.service.ArticleService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,8 +23,8 @@ public class ArticlesController {
     }
 
     @PostMapping("/article")
-    public Article updateArticle(@RequestBody Article article) {
-        return articleService.updateArticle(article);
+    public Article updateArticle(@RequestBody ArticleUpdateDto dto) {
+        return articleService.updateArticle(dto);
     }
 
     @DeleteMapping("/article/{id}")

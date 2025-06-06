@@ -12,3 +12,12 @@ spring:
     driverClassName: org.h2.Driver
     jpa:
       database-platform: org.hibernate.dialect.H2Dialect
+
+cloud:
+  aws:
+    credentials:
+      access-key: XXXXXXXXXX
+      secret-key: YYYYYYYYYY
+    region: eu-central-1
+    s3:
+      bucket: bucket-name

@@ -2,9 +2,7 @@ package org.fs.service;
 
 import lombok.RequiredArgsConstructor;
 import org.fs.dto.ArticleUpdateDto;
-import org.fs.dto.PictureDto;
 import org.fs.entity.Article;
-import org.fs.entity.Type;
 import org.fs.excepiton.EntityNotFoundException;
 import org.fs.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
@@ -16,8 +14,6 @@ import java.io.IOException;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-
-    private final S3Service s3Service;
 
     public Article getArticle(Long id) {
         return articleRepository.findById(id)

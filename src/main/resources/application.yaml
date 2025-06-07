@@ -12,6 +12,10 @@ spring:
     driverClassName: org.h2.Driver
     jpa:
       database-platform: org.hibernate.dialect.H2Dialect
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
 cloud:
   aws:
@@ -20,4 +24,4 @@ cloud:
       secret-key: YYYYYYYYYY
     region: eu-central-1
     s3:
-      bucket: bucket-name
+      bucket: food-stack-file-storage

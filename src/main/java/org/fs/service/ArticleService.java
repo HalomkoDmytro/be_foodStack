@@ -1,13 +1,12 @@
 package org.fs.service;
 
 import lombok.RequiredArgsConstructor;
+import org.fs.converter.ParagraphConverter;
 import org.fs.dto.ArticleUpdateDto;
 import org.fs.entity.Article;
 import org.fs.excepiton.EntityNotFoundException;
 import org.fs.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -27,20 +26,13 @@ public class ArticleService {
         } else {
             oldArticle = new Article();
         }
-//
-//        dto.getParagraph().stream()
-//                .filter(paragraph -> paragraph.getType().equals(Type.PICTURE))
-//                .map(img -> (PictureDto) img)
-//                .forEach(img -> {
-//                    try {
-//                        img.setData(s3Service.upload(img.file));
-//                    } catch (IOException e) {
-//                        img.setData("");
-//                        throw new RuntimeException(e);
-//                    }
-//                });
 
-        // todo: implement update
+        oldArticle.setTitle(dto.getTitle());
+        oldArticle.setDescription(dto.getDescription());
+
+        oldArticle.setParagraph(dto.getParagraph().stream()
+                .map(ParagraphConverter::convert)
+                .toList());
 
         return articleRepository.save(oldArticle);
     }

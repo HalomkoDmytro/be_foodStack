@@ -3,7 +3,6 @@ package org.fs.controller;
 import lombok.RequiredArgsConstructor;
 import org.fs.service.S3Service;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +18,7 @@ public class UploadFileController {
 
     @PostMapping("/api/upload")
     public ResponseEntity<String> upload(@RequestParam("image") MultipartFile file ) throws IOException {
-        return ResponseEntity.ok("File uploaded!!!");
-//        return ResponseEntity.ok(s3Service.upload(file));
+        return ResponseEntity.ok(s3Service.upload(file));
     }
 
 }

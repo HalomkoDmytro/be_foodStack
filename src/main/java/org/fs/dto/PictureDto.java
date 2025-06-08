@@ -15,8 +15,6 @@ public class PictureDto extends ParagraphDto{
 
     private String data;
 
-    public MultipartFile file;
-
     public Type getType() {
         return Type.PICTURE;
     }

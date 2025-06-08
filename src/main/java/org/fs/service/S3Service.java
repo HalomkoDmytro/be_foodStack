@@ -24,7 +24,11 @@ public class S3Service {
         String key = UUID.randomUUID() + "-" + file.getOriginalFilename();
 
         s3Client.putObject(
-                PutObjectRequest.builder().bucket(bucket).key(key).acl("public-read").build(),
+                PutObjectRequest.builder()
+                        .bucket(bucket)
+                        .key(key)
+//                        .acl("public-read")
+                        .build(),
                 RequestBody.fromInputStream(file.getInputStream(), file.getSize())
         );
 

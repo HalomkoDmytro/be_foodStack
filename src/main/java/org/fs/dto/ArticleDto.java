@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.fs.entity.ThemeArticle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ArticleUpdateDto {
+public class ArticleDto {
 
     private Long id;
 
@@ -24,5 +25,8 @@ public class ArticleUpdateDto {
 
     private String srcImg;
 
+    private ThemeArticle theme;
+
     private List<ParagraphDto> paragraph = new ArrayList<>();
+
 }

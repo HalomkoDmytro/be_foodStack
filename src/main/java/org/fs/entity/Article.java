@@ -30,6 +30,8 @@ public class Article {
 
     private String srcImg;
 
+    private ThemeArticle theme;
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true

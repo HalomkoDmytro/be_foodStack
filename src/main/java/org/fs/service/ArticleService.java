@@ -2,7 +2,6 @@ package org.fs.service;
 
 import lombok.RequiredArgsConstructor;
 import org.fs.converter.ArticleConverter;
-import org.fs.converter.ParagraphConverter;
 import org.fs.dto.ArticleDto;
 import org.fs.dto.PageResponse;
 import org.fs.entity.Article;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final FakeDataTestService test;
 
     public Article getArticle(Long id) {
         return articleRepository.findById(id)
@@ -38,23 +36,27 @@ public class ArticleService {
         return new PageResponse<>(articleDtoPage);
     }
 
-    public Article updateArticle(ArticleDto dto) {
+    public Article updateArticle(Article article) {
         Article oldArticle;
-        if (dto.getId() != null) {
-            oldArticle = getArticle(dto.getId());
+        if (article.getId() != null) {
+            oldArticle = getArticle(article.getId());
         } else {
             oldArticle = new Article();
         }
 
-        oldArticle.setTitle(dto.getTitle());
-        oldArticle.setDescription(dto.getDescription());
-        oldArticle.setTheme(dto.getTheme());
+        oldArticle.setTitle(article.getTitle());
+        oldArticle.setDescription(article.getDescription());
+        oldArticle.setTheme(article.getTheme());
 
-        oldArticle.setParagraph(dto.getParagraph().stream()
-                .map(ParagraphConverter::convert)
-                .toList());
+        oldArticle.setParagraph(article.getParagraph());
+
+        oldArticle.getParagraph().forEach(par -> par.setArticle(oldArticle));
 
         return articleRepository.save(oldArticle);
+    }
+
+    public Article updateArticle(ArticleDto dto) {
+        return updateArticle(ArticleConverter.convert(dto));
     }
 
     public void deleteArticle(Long id) {

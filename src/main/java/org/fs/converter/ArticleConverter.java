@@ -5,6 +5,7 @@ import org.fs.dto.ParagraphDto;
 import org.fs.entity.Article;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class ArticleConverter {
 
@@ -21,6 +22,19 @@ public final class ArticleConverter {
                 .toList();
         dto.setParagraph(listParagraphDto);
         return dto;
+    }
+
+    public static Article convert(ArticleDto dto) {
+        Article article = new Article();
+        article.setId(dto.getId());
+        article.setTitle(dto.getTitle());
+        article.setDescription(dto.getDescription());
+        article.setSrcImg(dto.getSrcImg());
+        article.setTheme(dto.getTheme());
+        article.setParagraph(dto.getParagraph().stream()
+                .map(ParagraphConverter::convert)
+                .collect(Collectors.toList()));
+        return article;
     }
 
 }

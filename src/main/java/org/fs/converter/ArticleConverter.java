@@ -3,6 +3,7 @@ package org.fs.converter;
 import org.fs.dto.ArticleDto;
 import org.fs.dto.ParagraphDto;
 import org.fs.entity.Article;
+import org.fs.entity.ArticleView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +35,16 @@ public final class ArticleConverter {
         article.setParagraph(dto.getParagraph().stream()
                 .map(ParagraphConverter::convert)
                 .collect(Collectors.toList()));
+        return article;
+    }
+
+    public static ArticleDto convert(ArticleView av) {
+        ArticleDto article = new ArticleDto();
+        article.setId(av.getId());
+        article.setTitle(av.getTitle());
+        article.setDescription(av.getDescription());
+        article.setSrcImg(av.getSrcImg());
+        article.setTheme(av.getTheme());
         return article;
     }
 

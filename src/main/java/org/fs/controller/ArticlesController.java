@@ -24,6 +24,12 @@ public class ArticlesController {
         return articleService.getArticle(id);
     }
 
+    @PostMapping("/article/light")
+    public PageResponse<ArticleDto> getAllArticleView(@RequestBody ArticleByThemeRequest request) {
+        return articleService.findAllArticleView( request.page(),
+                request.size(), request.sortBy(), request.sortDir());
+    }
+
     @PostMapping("/article/theme")
     public PageResponse<ArticleDto> getList(@RequestBody ArticleByThemeRequest request) {
         return articleService.getArticlesByTheme(request.theme(), request.page(),

@@ -5,6 +5,7 @@ import org.fs.converter.ArticleConverter;
 import org.fs.dto.ArticleDto;
 import org.fs.dto.PageResponse;
 import org.fs.entity.Article;
+import org.fs.entity.ArticleView;
 import org.fs.entity.ThemeArticle;
 import org.fs.excepiton.EntityNotFoundException;
 import org.fs.repository.ArticleRepository;
@@ -25,12 +26,23 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException("Article by id [" + id + "] not found."));
     }
 
+    public PageResponse<ArticleDto> findAllArticleView(int page, int size, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase("desc") ?
+                Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<ArticleView> allArticleViewPage = articleRepository.findAllArticleView(pageable);
+        Page<ArticleDto> articleDtoPage = allArticleViewPage.map(ArticleConverter::convert);
+
+        return new PageResponse<>(articleDtoPage);
+    }
+
     public PageResponse<ArticleDto> getArticlesByTheme(ThemeArticle theme, int page, int size, String sortBy, String sortDir) {
         Sort sort = sortDir.equalsIgnoreCase("desc") ?
                 Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
 
         Pageable pageable = PageRequest.of(page, size, sort);
-        Page<Article> articlePage = articleRepository.findByTheme(theme, pageable);
+        Page<ArticleView> articlePage = articleRepository.findByTheme(theme, pageable);
         Page<ArticleDto> articleDtoPage = articlePage.map(ArticleConverter::convert);
 
         return new PageResponse<>(articleDtoPage);
@@ -47,6 +59,7 @@ public class ArticleService {
         oldArticle.setTitle(article.getTitle());
         oldArticle.setDescription(article.getDescription());
         oldArticle.setTheme(article.getTheme());
+        oldArticle.setSrcImg(article.getSrcImg());
 
         oldArticle.setParagraph(article.getParagraph());
 

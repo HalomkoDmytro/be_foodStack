@@ -5,7 +5,6 @@ import org.fs.entity.Article;
 import org.fs.entity.Picture;
 import org.fs.entity.Text;
 import org.fs.entity.ThemeArticle;
-import org.fs.repository.ArticleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

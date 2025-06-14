@@ -3,6 +3,6 @@ package org.fs.entity;
 public enum Type {
     PICTURE,
     TEXT,
-    TITLE,
+    LIST_GROUPS,
     PICTURE_WITH_TEXT
 }

@@ -1,10 +1,10 @@
 package org.fs.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.fs.converter.ArticleConverter;
 import org.fs.dto.ArticleByThemeRequest;
 import org.fs.dto.ArticleDto;
 import org.fs.dto.PageResponse;
-import org.fs.entity.Article;
 import org.fs.service.ArticleService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +37,8 @@ public class ArticlesController {
     }
 
     @PostMapping("/article")
-    public Article updateArticle(@RequestBody ArticleDto dto) {
-        return articleService.updateArticle(dto);
+    public ArticleDto updateArticle(@RequestBody ArticleDto dto) {
+        return ArticleConverter.convert(articleService.updateArticle(dto));
     }
 
     @DeleteMapping("/article/{id}")

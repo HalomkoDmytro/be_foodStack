@@ -1,9 +1,9 @@
 package org.fs.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.fs.entity.Type;
@@ -15,9 +15,9 @@ import org.fs.entity.Type;
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = TextDto.class, name = "TEXT"),
-        @JsonSubTypes.Type(value = PictureDto.class, name = "PICTURE")
+        @JsonSubTypes.Type(value = PictureDto.class, name = "PICTURE"),
+        @JsonSubTypes.Type(value = ListGroupsDto.class, name = "LIST_GROUPS")
 })
-@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 public abstract class ParagraphDto {

@@ -1,7 +1,5 @@
 package org.fs.entity;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,15 +12,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "type"
-)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = Text.class, name = "TEXT"),
-        @JsonSubTypes.Type(value = Picture.class, name = "PICTURE")
-})
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter

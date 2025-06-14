@@ -11,8 +11,9 @@ import lombok.ToString;
 import java.util.List;
 
 @Entity
-@Getter
+
 @Setter
+@Getter
 @ToString
 @NoArgsConstructor
 public class ListGroups extends Paragraph {
@@ -20,8 +21,6 @@ public class ListGroups extends Paragraph {
     @OneToMany(mappedBy = "listGroups", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ListGroupElement> data;
 
-    public Type getType() {
-        return Type.LIST_GROUPS;
-    }
+    public Type type = Type.LIST_GROUPS;
 
 }

@@ -1,6 +1,8 @@
 package org.fs.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -27,6 +29,7 @@ public abstract class Paragraph {
 
     private int orderPosition;
 
-    public abstract Type getType();
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
 }

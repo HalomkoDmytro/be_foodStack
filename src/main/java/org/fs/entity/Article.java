@@ -3,6 +3,8 @@ package org.fs.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
@@ -33,6 +35,7 @@ public class Article {
     @Column(length = 1000)
     private String srcImg;
 
+    @Enumerated(EnumType.STRING)
     private ThemeArticle theme;
 
     @OneToMany(

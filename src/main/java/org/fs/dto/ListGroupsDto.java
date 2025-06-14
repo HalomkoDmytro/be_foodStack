@@ -16,8 +16,5 @@ public class ListGroupsDto extends ParagraphDto {
 
     private List<ListGroupElementDto> data;
 
-    public Type getType() {
-        return Type.LIST_GROUPS;
-    }
-
+    public Type type = Type.LIST_GROUPS;
 }

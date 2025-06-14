@@ -1,9 +1,7 @@
 package org.fs.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.fs.entity.Type;
@@ -26,5 +24,5 @@ public abstract class ParagraphDto {
 
     private int orderPosition;
 
-    public abstract Type getType();
+    private Type type;
 }

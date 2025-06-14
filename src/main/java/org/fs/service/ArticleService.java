@@ -26,6 +26,12 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException("Article by id [" + id + "] not found."));
     }
 
+    public ArticleDto getArticleDto(Long id) {
+        return articleRepository.findById(id)
+                .map(ArticleConverter::convert)
+                .orElseThrow(() -> new EntityNotFoundException("Article by id [" + id + "] not found."));
+    }
+
     public PageResponse<ArticleDto> findAllArticleView(int page, int size, String sortBy, String sortDir) {
         Sort sort = sortDir.equalsIgnoreCase("desc") ?
                 Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();

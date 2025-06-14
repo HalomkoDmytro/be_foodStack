@@ -20,13 +20,13 @@ public class ArticlesController {
     private final ArticleService articleService;
 
     @GetMapping("/article/{id}")
-    public Article getById(@PathVariable Long id) {
-        return articleService.getArticle(id);
+    public ArticleDto getById(@PathVariable Long id) {
+        return articleService.getArticleDto(id);
     }
 
     @PostMapping("/article/light")
     public PageResponse<ArticleDto> getAllArticleView(@RequestBody ArticleByThemeRequest request) {
-        return articleService.findAllArticleView( request.page(),
+        return articleService.findAllArticleView(request.page(),
                 request.size(), request.sortBy(), request.sortDir());
     }
 

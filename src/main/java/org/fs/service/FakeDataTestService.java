@@ -22,7 +22,7 @@ public class FakeDataTestService implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        getList().stream().forEach(article -> articleService.updateArticle(article));
+        getList().forEach(article -> articleService.updateArticle(article));
     }
 
     public List<Article> getList() {

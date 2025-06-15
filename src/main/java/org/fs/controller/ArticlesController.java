@@ -6,6 +6,7 @@ import org.fs.dto.ArticleByThemeRequest;
 import org.fs.dto.ArticleDto;
 import org.fs.dto.PageResponse;
 import org.fs.service.ArticleService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +20,20 @@ public class ArticlesController {
 
     private final ArticleService articleService;
 
+    @Transactional(readOnly = true)
     @GetMapping("/article/{id}")
     public ArticleDto getById(@PathVariable Long id) {
         return articleService.getArticleDto(id);
     }
 
+    @Transactional(readOnly = true)
     @PostMapping("/article/light")
     public PageResponse<ArticleDto> getAllArticleView(@RequestBody ArticleByThemeRequest request) {
         return articleService.findAllArticleView(request.page(),
                 request.size(), request.sortBy(), request.sortDir());
     }
 
+    @Transactional(readOnly = true)
     @PostMapping("/article/theme")
     public PageResponse<ArticleDto> getList(@RequestBody ArticleByThemeRequest request) {
         return articleService.getArticlesByTheme(request.theme(), request.page(),

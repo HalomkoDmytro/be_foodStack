@@ -17,8 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -95,4 +93,5 @@ public class ArticleService {
                         .forEach(elem -> elem.setListGroups(lg))
                 );
     }
+
 }

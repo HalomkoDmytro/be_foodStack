@@ -2,6 +2,8 @@ package org.fs.service;
 
 import lombok.RequiredArgsConstructor;
 import org.fs.entity.Article;
+import org.fs.entity.ListGroupElement;
+import org.fs.entity.ListGroups;
 import org.fs.entity.Picture;
 import org.fs.entity.Text;
 import org.fs.entity.ThemeArticle;
@@ -25,7 +27,7 @@ public class FakeDataTestService implements CommandLineRunner {
 
     public List<Article> getList() {
         List<Article> list = new ArrayList<>();
-        list.add(new Article(null, "title 1", "descritption 1", null, ThemeArticle.DESSERT, Collections.emptyList()));
+        list.add(new Article(null, "title 1", "descritption 1", null, ThemeArticle.DESSERT, List.of(getListGroups())));
         list.add(new Article(null, "title 2", "descritption 2", "https://png.pngtree.com/png-vector/20221103/ourmid/pngtree-waffle-cone-ice-cream-isolated-refreshing-summer-dessert-sketch-png-image_6416820.png", ThemeArticle.DESSERT, List.of(getText(), getText(), getPicture())));
         list.add(new Article(null, "title 3", null, "https://png.pngtree.com/png-vector/20221103/ourmid/pngtree-waffle-cone-ice-cream-isolated-refreshing-summer-dessert-sketch-png-image_6416820.png", ThemeArticle.DESSERT, Collections.emptyList()));
         list.add(new Article(null, null, null, "https://png.pngtree.com/png-vector/20221103/ourmid/pngtree-waffle-cone-ice-cream-isolated-refreshing-summer-dessert-sketch-png-image_6416820.png", ThemeArticle.DESSERT, Collections.emptyList()));
@@ -49,6 +51,19 @@ public class FakeDataTestService implements CommandLineRunner {
         Text text = new Text();
         text.setData("Article text");
         return text;
+    }
+
+    private static ListGroups getListGroups() {
+        ListGroups lg = new ListGroups();
+        lg.setData(List.of(getLGE("Рецепт", null), getLGE("масло", "чуть чуть"), getLGE("батон", "2 скибки")) );
+        return lg;
+    }
+
+    private static ListGroupElement getLGE(String text, String size) {
+        ListGroupElement lge = new ListGroupElement();
+        lge.setText(text);
+        lge.setSize(size);
+        return lge;
     }
 
 }

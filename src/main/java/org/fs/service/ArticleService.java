@@ -6,7 +6,9 @@ import org.fs.dto.ArticleDto;
 import org.fs.dto.PageResponse;
 import org.fs.entity.Article;
 import org.fs.entity.ArticleView;
+import org.fs.entity.ListGroups;
 import org.fs.entity.ThemeArticle;
+import org.fs.entity.Type;
 import org.fs.excepiton.EntityNotFoundException;
 import org.fs.repository.ArticleRepository;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +74,7 @@ public class ArticleService {
         oldArticle.setParagraph(article.getParagraph());
 
         oldArticle.getParagraph().forEach(par -> par.setArticle(oldArticle));
+        updateListGroupWithArticle(oldArticle);
 
         return articleRepository.save(oldArticle);
     }
@@ -82,4 +87,12 @@ public class ArticleService {
         articleRepository.deleteById(id);
     }
 
+    private void updateListGroupWithArticle(Article article) {
+        article.getParagraph().stream()
+                .filter(par -> par.getType().equals(Type.LIST_GROUPS))
+                .map(par -> (ListGroups) par)
+                .forEach(lg -> lg.getData()
+                        .forEach(elem -> elem.setListGroups(lg))
+                );
+    }
 }

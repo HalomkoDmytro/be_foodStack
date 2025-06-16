@@ -5,6 +5,7 @@ import org.fs.converter.ArticleConverter;
 import org.fs.dto.ArticleByThemeRequest;
 import org.fs.dto.ArticleDto;
 import org.fs.dto.PageResponse;
+import org.fs.dto.SearchArticleRequest;
 import org.fs.service.ArticleService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,6 +38,13 @@ public class ArticlesController {
     @PostMapping("/article/theme")
     public PageResponse<ArticleDto> getList(@RequestBody ArticleByThemeRequest request) {
         return articleService.getArticlesByTheme(request.theme(), request.page(),
+                request.size(), request.sortBy(), request.sortDir());
+    }
+
+    @Transactional(readOnly = true)
+    @PostMapping("/article/search")
+    public PageResponse<ArticleDto> searchArticle(@RequestBody SearchArticleRequest request) {
+        return articleService.searchArticle(request.request(), request.page(),
                 request.size(), request.sortBy(), request.sortDir());
     }
 

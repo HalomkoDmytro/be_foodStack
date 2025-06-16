@@ -56,6 +56,17 @@ public class ArticleService {
         return new PageResponse<>(articleDtoPage);
     }
 
+    public PageResponse<ArticleDto> searchArticle(String search, int page, int size, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase("desc") ?
+                Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<ArticleView> articlePage = articleRepository.search(search, pageable);
+        Page<ArticleDto> articleDtoPage = articlePage.map(ArticleConverter::convert);
+
+        return new PageResponse<>(articleDtoPage);
+    }
+
     public Article updateArticle(Article article) {
         Article oldArticle;
         if (article.getId() != null) {

@@ -4,7 +4,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -15,12 +14,13 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
-@NoArgsConstructor
 public class ListGroups extends Paragraph {
 
     @OneToMany(mappedBy = "listGroups", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ListGroupElement> data;
 
-    public Type type = Type.LIST_GROUPS;
+    public ListGroups() {
+        setType(Type.LIST_GROUPS);
+    }
 
 }

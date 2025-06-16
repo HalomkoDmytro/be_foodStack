@@ -1,5 +1,6 @@
 package org.fs.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.fs.converter.ArticleConverter;
 import org.fs.dto.ArticleByThemeRequest;
@@ -36,14 +37,14 @@ public class ArticlesController {
 
     @Transactional(readOnly = true)
     @PostMapping("/article/theme")
-    public PageResponse<ArticleDto> getList(@RequestBody ArticleByThemeRequest request) {
+    public PageResponse<ArticleDto> getList(@RequestBody @Valid ArticleByThemeRequest request) {
         return articleService.getArticlesByTheme(request.theme(), request.page(),
                 request.size(), request.sortBy(), request.sortDir());
     }
 
     @Transactional(readOnly = true)
     @PostMapping("/article/search")
-    public PageResponse<ArticleDto> searchArticle(@RequestBody SearchArticleRequest request) {
+    public PageResponse<ArticleDto> searchArticle(@RequestBody @Valid SearchArticleRequest request) {
         return articleService.searchArticle(request.request(), request.page(),
                 request.size(), request.sortBy(), request.sortDir());
     }

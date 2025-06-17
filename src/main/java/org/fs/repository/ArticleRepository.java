@@ -16,7 +16,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query(value = "SELECT a.id AS id, a.title AS title, a.description AS description," +
             " a.srcImg AS srcImg, a.theme AS theme " +
             " FROM Article a WHERE a.theme = :theme",
-            countQuery = "SELECT COUNT(a) FROM Article a")
+            countQuery = "SELECT COUNT(a) FROM Article a WHERE a.theme = :theme")
     Page<ArticleView> findByTheme(@Param("theme") ThemeArticle theme, Pageable pageable);
 
     @Query(value = "SELECT DISTINCT a.id AS id, a.title AS title, a.description AS description," +
@@ -26,7 +26,12 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             " WHERE a.title ILIKE %:searchRequest% " +
             " OR a.description ILIKE %:searchRequest% " +
             " OR t.data ILIKE %:searchRequest%",
-            countQuery = "SELECT COUNT(a) FROM Article a")
+            countQuery = "SELECT COUNT(DISTINCT a.id) " +
+                    " FROM Article a LEFT JOIN Paragraph par ON par.article = a" +
+                    " LEFT JOIN Text t ON t.id = par.id " +
+                    " WHERE a.title ILIKE %:searchRequest% " +
+                    " OR a.description ILIKE %:searchRequest% " +
+                    " OR t.data ILIKE %:searchRequest%")
     Page<ArticleView> search(@Param("searchRequest") String searchRequest, Pageable pageable);
 
     @Query(value = "SELECT a.id AS id, a.title AS title, a.description AS description," +

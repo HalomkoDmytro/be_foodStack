@@ -7,6 +7,7 @@ import org.fs.dto.PageResponse;
 import org.fs.entity.Article;
 import org.fs.entity.ArticleView;
 import org.fs.entity.ListGroups;
+import org.fs.entity.Picture;
 import org.fs.entity.ThemeArticle;
 import org.fs.entity.Type;
 import org.fs.excepiton.EntityNotFoundException;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final S3Service s3Service;
 
     public Article getArticle(Long id) {
         return articleRepository.findById(id)
@@ -93,6 +95,14 @@ public class ArticleService {
     }
 
     public void deleteArticle(Long id) {
+        Article article = getArticle(id);
+        s3Service.deleteFile(article.getSrcImg());
+        article.getParagraph()
+                .stream()
+                .filter(paragraph -> paragraph.getType().equals(Type.PICTURE))
+                .map(paragraph -> (Picture) paragraph)
+                .forEach(picture -> s3Service.deleteFile(picture.getData()));
+
         articleRepository.deleteById(id);
     }
 

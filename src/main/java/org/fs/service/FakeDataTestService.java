@@ -43,7 +43,7 @@ public class FakeDataTestService implements CommandLineRunner {
 
     private static Picture getPicture() {
         Picture picture = new Picture();
-        picture.setData("https://food-stack-file-storage.s3.eu-central-1.amazonaws.com/56752738-fd22-43b1-90ac-ff6b610d02d4-Tiramisu+z+mascarpone+kremo.jpg");
+        picture.setData("https://food-stack-file-storage.s3.eu-central-1.amazonaws.com/0567acd0-9fb3-4e61-b3b0-b1815f6cbfe1-cat.jpeg");
         return picture;
     }
 

@@ -34,3 +34,4 @@ cloud:
     region: eu-central-1
     s3:
       bucket: food-stack-file-storage
+      region: eu-central-1

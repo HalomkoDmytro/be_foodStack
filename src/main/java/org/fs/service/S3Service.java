@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
@@ -17,6 +18,9 @@ public class S3Service {
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
+
+    @Value("${cloud.aws.s3.region}")
+    private String region;
 
     private final S3Client s3Client;
 
@@ -32,7 +36,26 @@ public class S3Service {
                 RequestBody.fromInputStream(file.getInputStream(), file.getSize())
         );
 
-        String url = "https://" + bucket + ".s3.amazonaws.com/" + key;
-        return url;
+        return "https://" + bucket + ".s3.amazonaws.com/" + key;
     }
+
+    public void deleteFile(String url) {
+        String key = extractKeyFromUrl(url);
+
+        DeleteObjectRequest deleteRequest = DeleteObjectRequest.builder()
+                .bucket(bucket)
+                .key(key)
+                .build();
+
+        s3Client.deleteObject(deleteRequest);
+    }
+
+    public String extractKeyFromUrl(String url) {
+        String prefix = "https://" + bucket + ".s3." + region + ".amazonaws.com/";
+        if (url.startsWith(prefix)) {
+            return url.substring(prefix.length());
+        }
+        throw new IllegalArgumentException("URL does not match bucket");
+    }
+
 }

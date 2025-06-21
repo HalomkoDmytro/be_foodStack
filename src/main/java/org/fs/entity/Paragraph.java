@@ -23,8 +23,8 @@ public abstract class Paragraph {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "article_id", nullable = false)
     private Article article;
 
     private int orderPosition;

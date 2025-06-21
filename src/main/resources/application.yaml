@@ -5,19 +5,40 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
   datasource:
     url: jdbc:h2:mem:mydb
     username: sa
     password:
     driverClassName: org.h2.Driver
+
     jpa:
       database-platform: org.hibernate.dialect.H2Dialect
       hibernate:
         ddl-auto: crate-drop
-        show-sql: true
+      show-sql: true
       properties:
         hibernate:
           format_sql: true
+          use_sql_comments: true
+          type:
+            descriptor:
+              sql:
+                BasicBinder: TRACE
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+        stat: DEBUG
+
   servlet:
     multipart:
       max-file-size: 5MB

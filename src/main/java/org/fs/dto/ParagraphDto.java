@@ -25,4 +25,5 @@ public abstract class ParagraphDto {
     private int orderPosition;
 
     private Type type;
+
 }

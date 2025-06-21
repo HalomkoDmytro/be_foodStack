@@ -8,6 +8,7 @@ import org.fs.dto.ArticleDto;
 import org.fs.dto.PageResponse;
 import org.fs.dto.SearchArticleRequest;
 import org.fs.service.ArticleService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,8 +56,9 @@ public class ArticlesController {
     }
 
     @DeleteMapping("/article/{id}")
-    public void deleteById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         articleService.deleteArticle(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

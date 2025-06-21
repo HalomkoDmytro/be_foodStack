@@ -42,6 +42,6 @@ public class Article {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Paragraph> paragraph = new ArrayList<>();
+    private List<Paragraph> paragraph = new ArrayList<>(); // todo fix delete
 
 }

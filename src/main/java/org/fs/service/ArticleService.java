@@ -82,7 +82,8 @@ public class ArticleService {
         oldArticle.setTheme(article.getTheme());
         oldArticle.setSrcImg(article.getSrcImg());
 
-        oldArticle.setParagraph(article.getParagraph());
+        oldArticle.getParagraph().clear();
+        oldArticle.getParagraph().addAll(article.getParagraph());
 
         oldArticle.getParagraph().forEach(par -> par.setArticle(oldArticle));
         updateListGroupWithArticle(oldArticle);

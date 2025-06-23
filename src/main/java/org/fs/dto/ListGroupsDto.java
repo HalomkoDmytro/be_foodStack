@@ -1,7 +1,6 @@
 package org.fs.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.fs.entity.Type;

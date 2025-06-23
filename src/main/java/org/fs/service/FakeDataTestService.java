@@ -7,22 +7,33 @@ import org.fs.entity.ListGroups;
 import org.fs.entity.Picture;
 import org.fs.entity.Text;
 import org.fs.entity.ThemeArticle;
+import org.fs.entity.security.Role;
+import org.fs.entity.security.User;
+import org.fs.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
 public class FakeDataTestService implements CommandLineRunner {
 
     private final ArticleService articleService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) {
-        getList().forEach(article -> articleService.updateArticle(article));
+        User admin = new User("admin", passwordEncoder.encode("password"));
+        admin.setRoles(Set.of(Role.ADMIN, Role.USER));
+        userRepository.save(admin);
+
+        getList().forEach(articleService::updateArticle);
     }
 
     public List<Article> getList() {
@@ -55,7 +66,7 @@ public class FakeDataTestService implements CommandLineRunner {
 
     private static ListGroups getListGroups() {
         ListGroups lg = new ListGroups();
-        lg.setData(List.of(getLGE("Рецепт", null), getLGE("масло", "чуть чуть"), getLGE("батон", "2 скибки")) );
+        lg.setData(List.of(getLGE("Рецепт", null), getLGE("масло", "чуть чуть"), getLGE("батон", "2 скибки")));
         return lg;
     }
 

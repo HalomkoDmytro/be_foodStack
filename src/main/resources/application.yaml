@@ -56,3 +56,8 @@ cloud:
     s3:
       bucket: food-stack-file-storage
       region: eu-central-1
+
+app:
+  jwt:
+    secret: mySecretKey123456789012345678901234567890
+    expiration: 86400000 # 24 hours

@@ -1,16 +1,12 @@
-package org.fs.controller;
+package org.fs.controller.pub;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.fs.converter.ArticleConverter;
 import org.fs.dto.ArticleByThemeRequest;
 import org.fs.dto.ArticleDto;
 import org.fs.dto.PageResponse;
-import org.fs.dto.SearchArticleRequest;
 import org.fs.service.ArticleService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class ArticlesController {
+public class ArticlesControllerPub {
 
     private final ArticleService articleService;
 
@@ -43,22 +39,5 @@ public class ArticlesController {
                 request.size(), request.sortBy(), request.sortDir());
     }
 
-    @Transactional(readOnly = true)
-    @PostMapping("/article/search")
-    public PageResponse<ArticleDto> searchArticle(@RequestBody @Valid SearchArticleRequest request) {
-        return articleService.searchArticle(request.request(), request.page(),
-                request.size(), request.sortBy(), request.sortDir());
-    }
-
-    @PostMapping("/article")
-    public ArticleDto updateArticle(@RequestBody ArticleDto dto) {
-        return ArticleConverter.convert(articleService.updateArticle(dto));
-    }
-
-    @DeleteMapping("/article/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        articleService.deleteArticle(id);
-        return ResponseEntity.noContent().build();
-    }
 
 }

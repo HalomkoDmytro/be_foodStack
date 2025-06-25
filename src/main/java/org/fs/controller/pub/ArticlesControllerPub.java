@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.fs.dto.ArticleByThemeRequest;
 import org.fs.dto.ArticleDto;
 import org.fs.dto.PageResponse;
+import org.fs.dto.SearchArticleRequest;
 import org.fs.service.ArticleService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,5 +40,11 @@ public class ArticlesControllerPub {
                 request.size(), request.sortBy(), request.sortDir());
     }
 
+    @Transactional(readOnly = true)
+    @PostMapping("/article/search")
+    public PageResponse<ArticleDto> searchArticle(@RequestBody @Valid SearchArticleRequest request) {
+        return articleService.searchArticle(request.request(), request.page(),
+                request.size(), request.sortBy(), request.sortDir());
+    }
 
 }

@@ -51,7 +51,7 @@ public class S3Service {
     }
 
     public String extractKeyFromUrl(String url) {
-        String prefix = "https://" + bucket + ".s3." + region + ".amazonaws.com/";
+        String prefix = "https://" + bucket + ".s3" + ".amazonaws.com/";
         if (url.startsWith(prefix)) {
             return url.substring(prefix.length());
         }

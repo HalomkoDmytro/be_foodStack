@@ -10,7 +10,7 @@ create table article (
     src_img varchar(1000),
     title varchar(1000),
     description TEXT,
-    theme enum ('DESSERT','MAIN_COURSE','SOUS'),
+    theme varchar(125),
     primary key (id)
 );
 
@@ -36,7 +36,7 @@ create table paragraph (
     order_position integer not null,
     article_id bigint not null,
     id bigint not null,
-    type enum ('LIST_GROUPS','PICTURE','PICTURE_WITH_TEXT','TEXT'),
+    type varchar(125),
     primary key (id)
 );
 
@@ -54,7 +54,7 @@ create table text (
 
 create table user_roles (
     user_id bigint not null,
-    role enum ('ADMIN','USER')
+    role user_role
 );
 
 create table users (

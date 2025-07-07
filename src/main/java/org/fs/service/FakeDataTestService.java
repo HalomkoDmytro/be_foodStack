@@ -11,6 +11,7 @@ import org.fs.entity.security.Role;
 import org.fs.entity.security.User;
 import org.fs.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+@Profile("dev")
 @Component
 @RequiredArgsConstructor
 public class FakeDataTestService implements CommandLineRunner {

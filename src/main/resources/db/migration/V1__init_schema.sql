@@ -54,7 +54,7 @@ create table text (
 
 create table user_roles (
     user_id bigint not null,
-    role user_role
+    role varchar(125)
 );
 
 create table users (

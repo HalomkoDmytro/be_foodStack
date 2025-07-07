@@ -12,7 +12,10 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +41,26 @@ public class Article {
     @Enumerated(EnumType.STRING)
     private ThemeArticle theme;
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<Paragraph> paragraph = new ArrayList<>(); // todo fix delete
 
+    public Article(Long id, String title, String description, String srcImg,
+                   ThemeArticle theme, List<Paragraph> paragraph) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.srcImg = srcImg;
+        this.theme = theme;
+        this.paragraph = paragraph;
+    }
 }

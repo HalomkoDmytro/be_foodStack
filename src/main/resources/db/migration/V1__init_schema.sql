@@ -9,7 +9,7 @@ create table article (
     updated_at timestamp(6),
     src_img varchar(1000),
     title varchar(1000),
-    description clob,
+    description TEXT,
     theme enum ('DESSERT','MAIN_COURSE','SOUS'),
     primary key (id)
 );
@@ -42,13 +42,13 @@ create table paragraph (
 
 create table picture (
     id bigint not null,
-    data clob,
+    data TEXT,
     primary key (id)
 );
 
 create table text (
     id bigint not null,
-    data clob,
+    data TEXT,
     primary key (id)
 );
 

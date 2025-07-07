@@ -33,6 +33,7 @@ public class Article {
     private String title;
 
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(length = 1000)
